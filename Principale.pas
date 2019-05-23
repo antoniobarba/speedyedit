@@ -585,9 +585,12 @@ begin
       nFileCount := 0;
       lpFiles := nil;
     end;
-  MError := MapiSendMail(0, 0, MapiMessage,
+  MError := MapiSendMail(0, Application.Handle{0}, MapiMessage,
   MAPI_DIALOG or MAPI_LOGON_UI or MAPI_NEW_SESSION, 0);
-  if MError <> 0 then mess:= Application.MessageBox('Si è verificato un errore. Non è stato possibile inviare l''e-mail.', 'SpeedyEdit 2.0', mb_OK + mb_iconexclamation);
+  if MError == 0 then Application.MessageBox('E-mail spedita correttamente.', 'SpeedyEdit 2.0', mb_OK + mb_iconinformation);
+  else if MError == 1 then Application.MessageBox('Errore: nessun client di posta installato o richiesta annullata dall''utente.', 'SpeedyEdit 2.0', mb_OK + mb_iconexclamation);
+  else if MError == 3 then Application.MessageBox('Errore: nessun account di posta trovato.', 'SpeedyEdit 2.0', mb_OK + mb_iconinformation);
+  else if MError <> 0 then mess:= Application.MessageBox('Si è verificato un errore. Non è stato possibile inviare l''e-mail.', 'SpeedyEdit 2.0', mb_OK + mb_iconexclamation);
 
 end;
 
