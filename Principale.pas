@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ComCtrls, StdCtrls, Menus, ToolWin, Buttons, ImgList, ExtCtrls;
+  ComCtrls, StdCtrls, Menus, ToolWin, Buttons, ImgList, ExtCtrls,
+  System.ImageList, System.UITypes;
 
 type
   TForm1 = class(TForm)
@@ -573,7 +574,7 @@ begin
     begin
       ulReserved := 0;
       lpszSubject := nil;
-      lpszNoteText := PChar(RichEdit1.Lines.Text);
+      lpszNoteText := PAnsiChar(AnsiString(RichEdit1.Lines.Text));
       lpszMessageType := nil;
       lpszDateReceived := nil;
       lpszConversationID := nil;
